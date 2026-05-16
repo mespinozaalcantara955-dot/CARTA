@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta Sorpresa</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle, #7c2746, #2b0d1b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .flores {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .flor {
+      position: absolute;
+      font-size: 32px;
+      animation: flotar 5s infinite ease-in-out;
+    }
+
+    @keyframes flotar {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(10deg); }
+    }
+
+    .contenedor {
+      z-index: 2;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .pergamino-cerrado {
+      position: relative;
+      width: 330px;
+      height: 420px;
+      background: linear-gradient(90deg, #b86f34, #ffe2a5, #b86f34);
+      border-radius: 25px;
+      box-shadow: 0 25px 60px rgba(0,0,0,.6);
+      cursor: pointer;
+      overflow: hidden;
+      border: 4px solid #7b3f18;
+    }
+
+    .rollo {
+      position: absolute;
+      width: 105%;
+      height: 65px;
+      left: -8px;
+      background: linear-gradient(#ffd98b, #a45a22);
+      border: 4px solid #7b3f18;
+      border-radius: 50px;
+      z-index: 3;
+    }
+
+    .rollo.arriba {
+      top: -18px;
+    }
+
+    .rollo.abajo {
+      bottom: -18px;
+    }
+
+    .cinta {
+      position: absolute;
+      width: 45px;
+      height: 100%;
+      background: #a30000;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: .9;
+      z-index: 4;
+    }
+
+    .lazo {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 55px;
+      z-index: 5;
+    }
+
+    .sobre-mini {
+      position: absolute;
+      right: -45px;
+      top: 160px;
+      width: 140px;
+      height: 100px;
+      background: #f0c17a;
+      border: 3px solid #7b3f18;
+      transform: rotate(3deg);
+      z-index: 2;
+    }
+
+    .sobre-mini::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(35deg, transparent 49%, #7b3f18 50%, transparent 51%),
+        linear-gradient(-35deg, transparent 49%, #7b3f18 50%, transparent 51%);
+    }
+
+    .sello {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      background: #9d0000;
+      border-radius: 50%;
+      right: 48px;
+      top: 28px;
+      box-shadow: inset 0 0 8px #ff6b6b;
+      z-index: 3;
+    }
+
+    .titulo {
+      position: absolute;
+      width: 100%;
+      top: 155px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      color: #6b2c0f;
+      z-index: 5;
+    }
+
+    .boton {
+      margin-top: 28px;
+      padding: 13px 35px;
+      border: none;
+      border-radius: 30px;
+      background: #fff0f5;
+      color: #8b234a;
+      font-size: 25px;
+      font-family: 'Great Vibes', cursive;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,.4);
+    }
+
+    .carta {
+       display: none;
+  position: relative;
+  width: min(92vw, 760px);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 60px 50px;
+  background: #f6e6c5;
+  border: 8px solid #8b5a2b;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  z-index: 2;
+  animation: aparecer 1s ease forwards;
+}
+
+    .carta::before,
+    .carta::after {
+      content: "";
+      position: absolute;
+      left: -15px;
+      width: calc(100% + 30px);
+      height: 70px;
+      background: linear-gradient(#ffd98b, #a45a22);
+      border: 5px solid #7b3f18;
+      border-radius: 60px;
+      z-index: 1;
+    }
+
+    .carta::before {
+      top: -28px;
+    }
+
+    .carta::after {
+      bottom: -28px;
+    }
+
+    .carta h1 {
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 58px;
+      color: #6b2c0f;
+      margin-bottom: 25px;
+    }
+
+    .carta p {
+      .carta p {
+  font-family: 'Great Vibes', cursive;
+  font-size: 28px;
+  line-height: 1.7;
+  color: #2b1206;
+  text-align: left;
+  position: relative;
+  z-index: 10;
+}
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: scale(.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .oculto {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="flores" id="flores"></div>
+
+  <div class="contenedor" id="inicio">
+    <div class="pergamino-cerrado">
+      <div class="rollo arriba"></div>
+      <div class="rollo abajo"></div>
+      <div class="cinta"></div>
+      <div class="lazo">🎀</div>
+      <div class="sobre-mini">
+        <div class="sello"></div>
+      </div>
+      <div class="titulo">Para ti</div>
+    </div>
+
+    <button class="boton" onclick="abrirCarta()">Abrir carta</button>
+  </div>
+
+  <div class="carta" id="carta">
+    <h1>Para ti...</h1>
+
+    <p>
+      Ya paso una semana desde que nos vimos. Una semana desde aquel día en que fui a verte, pero la verdad es que todo esto no empezó ahora… empezó hace mucho tiempo, cuando le pedí a Dios que me enviara a una buena persona para enamorarme por primera vez; alguien que pudiera acompañarme a servirle, a caminar juntos hacia nuestros propósitos y sueños en la vida. Y si no era así, prefería estar solo, porque yo no buscaba conocer a nadie… pero llegaste tú.
+      <br><br>
+      Llegaste como un milagro, alegrando mis días con cada mensaje, con cada palabra tuya. Y te aseguro que voy a dar lo mejor de mí para que esto pueda funcionar, porque hay algo de lo que estoy completamente seguro: Dios no hace que las cosas sucedan por casualidad.
+      <br><br>
+      Ha pasado una semana desde la primera vez que te vi… tú estabas tan hermosa y yo tan nervioso. Cada noche escribo esto con el deseo inmenso de volver a verte, de contemplarte mientras reímos juntos y escucho tu delicada y hermosa voz.
+      <br><br>
+      Caminar contigo en la oscuridad de la noche fue algo especial, algo que guardaré siempre en mi corazón. Y cuando llegué a mi casa, me quedé pensando en todo lo vivido, deseando volver a verte antes de irme.
+      <br><br>
+      Pude verte aquella mañana, mientras el sol iluminaba tu hermosa presencia. Me encantó contemplarte, aunque fuera solo por un instante, porque a veces un segundo basta para quedarse viviendo en el corazón de alguien. Y me fui con la esperanza de volver a verte otra vez…
+    </p>
+  </div>
+
+  <script>
+    const flores = ["🌹","🌷","🌸","🌺","🌼","💐","🌻"];
+    const contenedorFlores = document.getElementById("flores");
+
+    for (let i = 0; i < 80; i++) {
+      const flor = document.createElement("div");
+      flor.classList.add("flor");
+      flor.textContent = flores[Math.floor(Math.random() * flores.length)];
+
+      if (i < 20) {
+        flor.style.top = "2%";
+        flor.style.left = Math.random() * 100 + "%";
+      } else if (i < 40) {
+        flor.style.bottom = "2%";
+        flor.style.left = Math.random() * 100 + "%";
+      } else if (i < 60) {
+        flor.style.left = "2%";
+        flor.style.top = Math.random() * 100 + "%";
+      } else {
+        flor.style.right = "2%";
+        flor.style.top = Math.random() * 100 + "%";
+      }
+
+      flor.style.animationDelay = Math.random() * 5 + "s";
+      flor.style.fontSize = 25 + Math.random() * 25 + "px";
+      contenedorFlores.appendChild(flor);
+    }
+
+    function abrirCarta() {
+      document.getElementById("inicio").classList.add("oculto");
+      document.getElementById("carta").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
